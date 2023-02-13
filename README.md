@@ -82,7 +82,7 @@ sure to create the following file in the namespace you created:
 Check the status of the PVC to make sure that it is successfully bound.
 
 ### Tiny File Manager
-There are supporting manifests in the `manifests` folder for deploying a
+There are supporting manifests in the `filestore` folder for deploying a
 PHP-based file manager program, [Tiny File
 Manager](https://tinyfilemanager.github.io/), and a corresponding volume claim.
 The `PersistentVolumeClaim` will grab a small amount of RWX storage, and you can

@@ -3,9 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: foam-tutorials-claim
 spec:
-  storageClassName: dubofile 
+  storageClassName: filestore 
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 10Gi
+      storage: 1Ti
