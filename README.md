@@ -8,6 +8,8 @@ The examples specifically target running [OpenFOAM](https://openfoam.org/) CFD
 simulations with CPUs and GPUs. It uses Google Cloud [Filestore](https://cloud.google.com/filestore)
 for providing RWX storage.
 
+![Topology Example](gke-mpi.png) 
+
 ## Quickstart (GKE)
 
 [![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://ssh.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https%3A%2F%2Fgithub.com%2FGoogleCloudPlatform%2Fmicroservices-demo&shellonly=true&cloudshell_image=gcr.io/ds-artifacts-cloudshell/deploystack_custom_image)
