@@ -1,7 +1,7 @@
 apiVersion: kubeflow.org/v1alpha2
 kind: MPIJob
 metadata:
-  name: openfoam-motorbike-example
+  name: openfoam-dambreak-example
 spec:
   slotsPerWorker: 2
   sshAuthMountPath: /home/openfoam/.ssh
@@ -11,20 +11,27 @@ spec:
       replicas: 1
       template:
         spec:
+          initContainers:
+          - name: wait-hostfilename
+            image: debian:latest
+            command:
+            - bash
+            - -cx
+            - "$(sleep 30;)"
           containers:
-          - image: quay.io/openshiftdemos/kubeflow-mpi-openfoam:latest
+          - image: us-central1-docker.pkg.dev/duboproject/openfoam-repo/kubeflow-openfoam:latest
             name: foam-container
             command:
             - /bin/bash
             args:
-            - /home/openfoam/scripts/motorBike.sh
+            - /home/openfoam/scripts/damBreak.sh
             resources:
               limits:
                 cpu: "1"
-                memory: "4Gi"
+                memory: "1Gi"
               requests:
                 cpu: "1"
-                memory: "4Gi"
+                memory: "1Gi"
             volumeMounts:
             - mountPath: /home/openfoam/storage
               name: storage
@@ -37,17 +44,19 @@ spec:
               claimName: foam-tutorials-claim
           - name: scripts
             configMap:
-              name: motorbike-job
+              name: dambreak-job
               items:
-              - key: "motorBike.sh"
-                path: "motorBike.sh"
+              - key: "damBreak.sh"
+                path: "damBreak.sh"
     Worker:
-      replicas: 6
+      replicas: 2
       template:
         spec:
           containers:
-          - image: quay.io/openshiftdemos/kubeflow-mpi-openfoam:latest
+          - image: us-central1-docker.pkg.dev/duboproject/openfoam-repo/kubeflow-openfoam:latest
             name: foam-worker
+            securityContext:
+              privileged: true
             command:
             - /usr/sbin/sshd
             args:

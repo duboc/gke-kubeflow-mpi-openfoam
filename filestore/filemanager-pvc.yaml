@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: foam-tutorials-claim
 spec:
-  storageClassName: ocs-storagecluster-cephfs
+  storageClassName: dubofile 
   accessModes:
     - ReadWriteMany
   resources:

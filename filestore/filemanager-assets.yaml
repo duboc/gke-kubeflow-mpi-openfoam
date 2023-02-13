@@ -24,6 +24,14 @@ spec:
       labels:
         app: filemanager
     spec:
+      initContainers:
+      - name: permission-fix
+        image: busybox
+        command: ['sh', '-c']
+        args: ['chmod -R 777 /opt/app-root/src/storage']
+        volumeMounts:
+          - mountPath: /opt/app-root/src/storage
+            name: storage  
       containers:
       - name: filemanager
         image: quay.io/openshiftdemos/tinyfilemanager-php-ubi:latest
@@ -52,7 +60,7 @@ metadata:
   labels:
     app: filemanager
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: filemanager
   ports:
@@ -60,18 +68,3 @@ spec:
       port: 8080
       targetPort: 8080
       name: http
----
-apiVersion: route.openshift.io/v1                                                                                      
-kind: Route            
-metadata:
-  name: filemanager
-  labels:
-    app: filemanager
-spec:
-  port:
-    targetPort: http
-  to:
-    kind: Service
-    name: filemanager
-    weight: 100
-  wildcardPolicy: None

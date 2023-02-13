@@ -1,8 +1,0 @@
-#!/bin/bash
-
-surfaceConvert \Input/*ing*.stl \triSurface/wing.stl -clean -scale 0.0254
-
-
-exit;
-
-
