@@ -50,7 +50,9 @@ The Kubeflow MPI Operator needs to be installed. The installation process also
 creates a `CustomResourceDefinition` for an `mpijob` object, which is how you
 will define the MPI job that you want the cluster to run.
 
-* `kubectl apply -f https://raw.githubusercontent.com/kubeflow/mpi-operator/v0.3.0/deploy/v2beta1/mpi-operator.yaml`
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubeflow/mpi-operator/v0.3.0/deploy/v2beta1/mpi-operator.yaml
+```
 
 This will create a namespace with all of the required elements to deploy the
 operator. Wait for the pod for the MPI Operator to be deployed and ready before
@@ -65,7 +67,9 @@ example we will refer to the `cfd` namespace.
 ### CFD Project
 Create a new namespace called `cfd`. 
 
-* `kuebctl create ns cfd`
+```bash
+kubectl create ns cfd
+```
 
 
 ### Persistent Volume Claim
