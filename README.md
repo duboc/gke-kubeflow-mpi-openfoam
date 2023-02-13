@@ -40,6 +40,7 @@ gcloud container clusters create gke-openfoam \
 
 ### Filestore
 
+To-do
 
 ### Cluster Autoscaling
 Whether or not you want to auto-scale your cluster is up to you. It is trivial
@@ -77,9 +78,6 @@ You will need some storage to attach the file manager and the CFD workers to. Be
 sure to create the following file in the namespace you created:
 
     kubectl create -f filestore/filemanager-pvc.yaml -n cfd
-
-This PVC assumes that you used the default storage class names when you deployed
-OpenShift Data Foundation.
 
 Check the status of the PVC to make sure that it is successfully bound.
 
@@ -121,10 +119,6 @@ The default username and password for Tiny File Manager is used:
 That's it!
 
 ### OpenFOAM MPI Launcher/Worker Container Image
-Podman was used locally to build the OpenFOAM container image to go with the MPI
-operator. You can find its `Containerfile` and supporting files in this
-repository. The image is also currently being hosted on Quay.io:
-[https://quay.io/repository/openshiftdemos/kubeflow-mpi-openfoam](https://quay.io/repository/openshiftdemos/kubeflow-mpi-openfoam)
 
 The MPI operator uses a concept of a Launcher pod (which is where `mpirun`
 originates) and Worker pods, which are the targets of the `mpirun` command.
@@ -201,11 +195,7 @@ that two cores are being used:
 Depending on the nature of your environment, you may wish to run more
 `slotsPerWorker` in order to reduce the total number of Pods that get scheduled
 by the MPI operator. There are varying support limits for the number of
-pods-per-node depending on your Kuberetes distribution. OpenShift currently
-supports 250 pods per node and this is the default limit. If you were running
-your environment directly on very large hardware with a huge number of cores,
-having `slotsPerWorker: 1` could result in attempting to schedule too many pods
-on your nodes and the resulting MPI job would fail.
+pods-per-node depending on your Kubernetes distribution.
 
 Also, attempting to schedule very large numbers of pods simultaneously can
 result in system instability. On the flip side, trying to fit larger Pods that
